@@ -37,18 +37,18 @@ class SecurityClass
      * 我们这里将使用 __call() 来实现过滤器和验证器的函数调用
      * @param $name
      * @param $arguments
-     * @return false
+     * @return null
      */
     public function __call($name, $arguments)
     {
-        preg_match('/^filter|validate(.*)$/i', $name, $matches);
+        preg_match('/^(filter|validate)(.*)$/i', $name, $matches);
         $prefix = $matches[1] ?? '';
         $function = strtolower($matches[2] ?? '');
         if ($prefix && $function) {
             return $this->$prefix[$function]($arguments[0]);
         }
 
-        return FALSE;
+        return NULL;
     }
 
 
