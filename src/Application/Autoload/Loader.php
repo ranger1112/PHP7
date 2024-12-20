@@ -30,6 +30,8 @@ class Loader
             self::addDirs($dirs);
         }
 
+        // 检测是否已经注入过自动加载函数，确保自动加载函数只会被注册一次
+        // 防止重复注册
         if (self::$registered == 0) {
             // 注册自动加载
             spl_autoload_register(__CLASS__ . '::autoload');
